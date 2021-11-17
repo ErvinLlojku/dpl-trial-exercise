@@ -52,7 +52,7 @@ function Birthday() {
     <>
       <form name="userForm" autoComplete="on" onSubmit={handleSubmit}>
         <div role="group" aria-labelledby="birthday_head">
-          <div id="birthday_head">PLEASE ENTER YOUR BIRTHDAY:</div>
+          <div id="birthday_head">Please enter your birthday:</div>
           <div id="bday">
             <select
               name="day"
