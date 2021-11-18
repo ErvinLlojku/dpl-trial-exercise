@@ -1,15 +1,28 @@
+// Configure .env files
+require('dotenv').config()
+
 const { ApolloServer } = require("apollo-server");
 const typeDefs = require("./scheme");
+const resolvers = require('./resolvers');
 
-const mocks = {
-  Birthday: () => ({
-    day: () => 13,
-    month: () => 6,
-    year: () => 2021
-  })
-};
+const MyDatabase = require("./MyDatabase");
 
-const server = new ApolloServer({ typeDefs, mocks })
+const db = new MyDatabase({
+  client: 'mysql',
+  connection: {
+    host: process.env.DB_HOST,
+    port: process.env.DB_PORT,
+    user: process.env.DB_USER,
+    password: process.env.DB_PASSWORD,
+    database: process.env.DB_DATABASE
+  }
+});
+
+const server = new ApolloServer({
+  typeDefs,
+  resolvers,
+  dataSources: () => ({ db })
+});
 
 server.listen({ port: 5000 }).then(() => {
   console.log(`

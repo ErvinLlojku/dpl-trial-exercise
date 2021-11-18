@@ -1,16 +1,24 @@
 const { gql } = require("apollo-server");
+const { typeDefs } = require('graphql-scalars');
 
-const typeDefs = gql`
+const myTypeDefs = gql`
+  type Mutation {
+    "Mutatio to update birthday value"
+    setBirthday(birthday: Date!): Birthday
+  }
+
   type Query {
     "Query to return the birthday"
     getBirthday: Birthday
   }
 
   type Birthday {
-    day: Int!
-    month: Int!
-    year: Int!
+   "Birthday in format: yyyy-mm-dd"
+    birthday: Date!
   }
 `;
 
-module.exports = typeDefs;
+module.exports = [
+  myTypeDefs,
+  ...typeDefs
+];
