@@ -1,46 +1,56 @@
-# Getting Started with Create React App
+# DPL Trial Exercise
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This is a trial exercise to review frontend and backend skills
 
-## Available Scripts
+The task requested to built a app using react that includes a "birthday component". The user can select and update his/her birthday. Please view all details in [TASK.md](./TASK.md)
 
-In the project directory, you can run:
+> The project is divided into `client` and `server` folders respectively for the frontend and the backend of the application.
 
-### `yarn start`
+To run the project you need the following tools:
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+- Node (lts/stable)
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+Let's check to see if you already have Node installed. Bring up a terminal and type `node --version`. If Node responds, and if it shows a version at or above v6.10.x, proceed to checking if you have Ruby installed too. If you require Node, go to [nodejs.org](http://nodejs.org/) and click on the big green Install button.
 
-### `yarn test`
+## Client
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+The client is built using `Reactjs:"^17.0.2"`
 
-### `yarn build`
+Steps to follow to setup the backend:
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+- Install the dependencies and run the project
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+Go to `/client` and run:
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+```shell
+npm install && npm start
+```
 
-### `yarn eject`
+This is it!
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+## Backend
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+The backend is built with nodejs and uses Apollo Server and Graphql for data manipulation.
+MySQL database is used for the storage.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+Steps to follow to setup the backend:
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+- Install dependencies.
 
-## Learn More
+To setup the server go to `/server` and run:
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+```shell
+npm install && npm start
+```
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+- Create the database.
+
+Go to your prefered MYSQL client and create a new database with a name of your preference. Import in the database the file provied "dpl_trial_exercise.sql".
+
+For security reasons is suggested to create a database user that has access only to this database.
+
+- Update `.env` configuration file
+
+After you have setup the database. Rename `.env.example` to `.env` and add you database information.
+
+This is it!

@@ -1,0 +1,29 @@
+{
+  "name": "server",
+  "version": "1.0.0",
+  "description": "Backend app with Apollo and Graphql",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon src/index"
+  },
+  "keywords": [
+    "apollo",
+    "graphql",
+    "nodejs"
+  ],
+  "author": "Ervin Llojku <llojku.ervin@gmail.com>",
+  "license": "ISC",
+  "devDependencies": {
+    "dotenv": "^10.0.0",
+    "nodemon": "^2.0.15"
+  },
+  "dependencies": {
+    "apollo-server": "^3.5.0",
+    "datasource-sql": "^1.6.0",
+    "graphql": "^15.7.2",
+    "graphql-scalars": "^1.13.6",
+    "lodash.merge": "^4.6.2",
+    "mysql": "^2.18.1"
+  }
+}

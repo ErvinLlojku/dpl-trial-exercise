@@ -1,0 +1,45 @@
+.form {
+  .form__label {
+    display: inline-block;
+    color: #2e384d;
+    font-size: 1.4rem;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    margin-bottom: 0.8rem;
+  }
+
+  .form__group {
+    .form__control {
+      margin-bottom: 1rem;
+    }
+
+    &--horizontal {
+      display: flex;
+
+      .form__control {
+        width: 100%;
+      }
+
+      .form__control + .form__control {
+        margin-left: 1rem;
+      }
+    }
+  }
+
+  .form__select {
+    display: block;
+    width: 100%;
+    padding: 0.375rem 0.75rem;
+    font-size: 1.4rem;
+    line-height: 1.5;
+    color: #495057;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid #ced4da;
+    border-radius: 0.25rem;
+    transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+  }
+
+}
