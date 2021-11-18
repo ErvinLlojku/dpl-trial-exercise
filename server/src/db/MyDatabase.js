@@ -1,6 +1,4 @@
 const { SQLDataSource } = require("datasource-sql");
-const MINUTE = 60;
-
 class MyDatabase extends SQLDataSource {
   /**
    * This method is used to query user table and return `birthday`
@@ -13,7 +11,7 @@ class MyDatabase extends SQLDataSource {
       .from("user")
       .where({ id: 1 })
       .first()
-      .cache(MINUTE);
+      .cache();
   }
 
   setBirthday(birthday) {
