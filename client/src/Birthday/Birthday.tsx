@@ -1,13 +1,18 @@
 import React, { useState, useRef, useEffect } from "react";
 import "./Birthday.scss";
 
+import { useQuery } from "@apollo/client";
+import { GET_BIRTHDAY } from "./birthday.queries";
+
 interface IBirthday {
-  day: string;
-  month: string;
-  year: string;
+  day: number;
+  month: number;
+  year: number;
 }
 
 function Birthday() {
+  const { data } = useQuery(GET_BIRTHDAY);
+
   /**
    * Element refs
    */
@@ -17,7 +22,7 @@ function Birthday() {
   /**
    * State variables
    */
-  const [selectedBirthday, setBirthday] = useState<IBirthday>({ day: '', month: '', year: '' });
+  const [selectedBirthday, setBirthday] = useState<IBirthday>({ day: 0, month: 0, year: 0 });
 
   const today = new Date();
   const maxAge = 120;
@@ -25,27 +30,54 @@ function Birthday() {
   const maxYearAllowed = today.getFullYear() - minAge;
 
   const days = Array.from({ length: 31 }, (_, i) => i + 1);
-  const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+  const months = [
+    { value: 1, label: 'January' },
+    { value: 2, label: 'February' },
+    { value: 3, label: 'March' },
+    { value: 4, label: 'April' },
+    { value: 5, label: 'May' },
+    { value: 6, label: 'June' },
+    { value: 7, label: 'July' },
+    { value: 8, label: 'August' },
+    { value: 9, label: 'September' },
+    { value: 10, label: 'October' },
+    { value: 11, label: 'November' },
+    { value: 12, label: 'December' }
+  ];
   const years = Array.from({ length: maxAge + 1 }, (_, i) => maxYearAllowed - i);
+
+  /**
+   * Effects
+   */
+  useEffect(() => {
+    if (data && data.getBirthday) {
+      const [year, month, day] = data.getBirthday.birthday.split('-');
+      setBirthday({
+        day: day,
+        month: parseInt(month),
+        year: year
+      });
+    }
+  }, [data]);
 
   /**
    * Event handlers
    */
   const handleDaySelect = (ev: React.ChangeEvent<HTMLSelectElement>): void => {
-    setBirthday({...selectedBirthday, day: ev.target.value});
+    setBirthday({ ...selectedBirthday, day: parseInt(ev.target.value) });
   };
 
   const handleMonthSelect = (ev: React.ChangeEvent<HTMLSelectElement>): void => {
-    setBirthday({...selectedBirthday, month: ev.target.value});
+    setBirthday({ ...selectedBirthday, month: parseInt(ev.target.value) });
   };
 
   const handleYearSelect = (ev: React.ChangeEvent<HTMLSelectElement>): void => {
-    setBirthday({...selectedBirthday, year: ev.target.value});
+    setBirthday({ ...selectedBirthday, year: parseInt(ev.target.value) });
   };
 
   const handleSubmit = (ev: React.FormEvent<HTMLFormElement>): void => {
     ev.preventDefault();
-    console.log(selectedBirthday);
+    // !! TODO implementation missing
   };
 
   return (
@@ -73,8 +105,8 @@ function Birthday() {
               id="bday-month"
               autoComplete="bday-month"
               required>
-                <option value="">mm</option>
-              {months.map(m => <option key={m} value={m}>{m}</option>)}
+              <option value="">mm</option>
+              {months.map(m => <option key={m.value} value={m.value}>{m.label}</option>)}
             </select>
 
             <select
@@ -85,7 +117,7 @@ function Birthday() {
               id="bday-year"
               autoComplete="bday-year"
               required>
-                <option value="">yyyy</option>
+              <option value="">yyyy</option>
               {years.map(y => <option key={y} value={y}>{y}</option>)}
             </select>
 

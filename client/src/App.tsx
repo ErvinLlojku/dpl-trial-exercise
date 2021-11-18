@@ -1,6 +1,6 @@
 import React from 'react';
 import './App.css';
-import Birthday from './Birthday';
+import Birthday from './Birthday/Birthday';
 
 function App() {
   return (
