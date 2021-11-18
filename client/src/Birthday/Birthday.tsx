@@ -1,8 +1,8 @@
 import React, { useState, useRef, useEffect } from "react";
 import "./Birthday.scss";
 
-import { useQuery } from "@apollo/client";
-import { GET_BIRTHDAY } from "./birthday.queries";
+import { useQuery, useMutation } from "@apollo/client";
+import { GET_BIRTHDAY, UPDATE_BIRTHDAY } from "./birthday.queries";
 
 interface IBirthday {
   day: number;
@@ -11,8 +11,6 @@ interface IBirthday {
 }
 
 function Birthday() {
-  const { data } = useQuery(GET_BIRTHDAY);
-
   /**
    * Element refs
    */
@@ -23,6 +21,20 @@ function Birthday() {
    * State variables
    */
   const [selectedBirthday, setBirthday] = useState<IBirthday>({ day: 0, month: 0, year: 0 });
+
+  /**
+   * GrahpQL operations
+   */
+  const { data } = useQuery(GET_BIRTHDAY);
+  const [ updateBirthday ] = useMutation(UPDATE_BIRTHDAY, {
+    variables: {
+      birthday: `${selectedBirthday.year}-${selectedBirthday.month}-${selectedBirthday.day}`,
+      onComplete: (resp: any) => {
+        // Do nothing
+        console.log('onComplete', resp);
+      }
+    }
+  });
 
   const today = new Date();
   const maxAge = 120;
@@ -77,7 +89,9 @@ function Birthday() {
 
   const handleSubmit = (ev: React.FormEvent<HTMLFormElement>): void => {
     ev.preventDefault();
-    // !! TODO implementation missing
+
+    // do validation if birthday is valid
+    updateBirthday();
   };
 
   return (
