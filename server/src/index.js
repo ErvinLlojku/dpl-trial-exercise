@@ -5,7 +5,7 @@ const { ApolloServer } = require("apollo-server");
 const typeDefs = require("./scheme");
 const resolvers = require('./resolvers');
 
-const MyDatabase = require("./MyDatabase");
+const MyDatabase = require("./db");
 
 const db = new MyDatabase({
   client: 'mysql',
