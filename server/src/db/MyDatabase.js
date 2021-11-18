@@ -17,7 +17,7 @@ class MyDatabase extends SQLDataSource {
   }
 
   setBirthday(birthday) {
-    return this.knex
+    return this.knex('user')
       .where('id', 1)
       .update({
         birthday: birthday,
